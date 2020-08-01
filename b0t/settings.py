@@ -208,9 +208,12 @@ You can also set environment variables that match {self.name.upper()}_OPTION
 	def config_path(self, x: Union[str, Path]) -> None:
 		self._config_path = x
 	
-	def get(self, key: str, default: Any = None) -> Any:
+	def get(self, key: str = "", default: Any = None) -> Any:
 		"""Returns the value of key. If key is not found, returns default."""
-		return self._settings.get(key, default)
+		if not key:
+			return self._settings
+		else:
+			return self._settings.get(key, default)
 
 	def set(self, key: str, value: Any) -> None:
 		"""Sets key to value"""
