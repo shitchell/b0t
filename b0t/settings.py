@@ -132,7 +132,7 @@ class Settings:
 			if not type_found:
 				self._log("No handler for source '{}'".format(str(source)[:20]))
 		
-		return self._parser.parse_args(args)
+		return self._parser.parse_known_args(args)
 
 	def load(self, sources: List[Union[dict, list, set, str, os._Environ, Path]] = list()) -> None:
 		if not sources:
