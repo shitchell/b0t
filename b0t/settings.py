@@ -33,8 +33,9 @@ class Settings:
 	_settings: Dict[str, Any]
 	_handlers: Dict[Type, Callable]
 	sources: List[Union[dict, list, set, str, os._Environ, Path]]
+	_parse_known_args: bool
 
-	def __init__(self, sources: Optional[list] = None, name: Optional[str] = None, config_path: Optional[Union[str, Path]] = None) -> None:
+	def __init__(self, sources: Optional[list] = None, name: Optional[str] = None, config_path: Optional[Union[str, Path]] = None, parse_known_args bool: = True) -> None:
 		self._parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
 		self._name = name
 		self._config_path = config_path
@@ -59,6 +60,7 @@ class Settings:
 		]
 		# Alias to inner _parser.add_argument method
 		self._parser.epilog = self.epilog
+		self._parse_known_args = parse_known_args
 
 	def _log(self, msg, level: int = 1):
 		syslog.syslog(level, msg)
@@ -132,7 +134,10 @@ class Settings:
 			if not type_found:
 				self._log("No handler for source '{}'".format(str(source)[:20]))
 		
-		return self._parser.parse_known_args(args)
+		if self._parse_known_args:
+			return self._parser.parse_known_args(args)
+		else:
+			return self._parser.parse_args(args)
 
 	def load(self, sources: List[Union[dict, list, set, str, os._Environ, Path]] = list()) -> None:
 		if not sources:
