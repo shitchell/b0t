@@ -135,7 +135,7 @@ class Settings:
 				self._log("No handler for source '{}'".format(str(source)[:20]))
 		
 		if self._parse_known_args:
-			return self._parser.parse_known_args(args)
+			return self._parser.parse_known_args(args)[0]
 		else:
 			return self._parser.parse_args(args)
 
