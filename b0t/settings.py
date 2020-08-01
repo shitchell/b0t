@@ -35,7 +35,7 @@ class Settings:
 	sources: List[Union[dict, list, set, str, os._Environ, Path]]
 	_parse_known_args: bool
 
-	def __init__(self, sources: Optional[list] = None, name: Optional[str] = None, config_path: Optional[Union[str, Path]] = None, parse_known_args bool: = True) -> None:
+	def __init__(self, sources: Optional[list] = None, name: Optional[str] = None, config_path: Optional[Union[str, Path]] = None, parse_known_args: bool = True) -> None:
 		self._parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
 		self._name = name
 		self._config_path = config_path
