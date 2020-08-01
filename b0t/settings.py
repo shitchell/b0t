@@ -4,10 +4,10 @@
 import re
 import os
 import sys
+import syslog
 import argparse
 from enum import Enum
 from pathlib import Path
-from logging import Logger
 from typing import Any, Callable, List, Dict, Optional, Type, Set, Union
 
 # Config sources. Order determines priority when it comes to overwriting
@@ -32,7 +32,6 @@ class Settings:
 	_epilog: Optional[str]
 	_settings: Dict[str, Any]
 	_handlers: Dict[Type, Callable]
-	_logger: Logger
 	sources: List[Union[dict, list, set, str, os._Environ, Path]]
 
 	def __init__(self, sources: Optional[list] = None, name: Optional[str] = None, config_path: Optional[Union[str, Path]] = None) -> None:
@@ -59,11 +58,10 @@ class Settings:
 			sys.argv[1:]
 		]
 		# Alias to inner _parser.add_argument method
-		self._logger = Logger('settingspy')
 		self._parser.epilog = self.epilog
 
 	def _log(self, msg, level: int = 1):
-		self._logger.log(level, msg)
+		syslog.syslog(level, msg)
 
 	def _load_str(self, s: str) -> List[str]:
 		return s.split()
