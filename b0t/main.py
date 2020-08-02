@@ -100,10 +100,17 @@ for cog in cogs:
 	bot.load_extension(cog)
 log("commands: ", [(str(x.cog_name) if hasattr(x, "cog") else "") + "." + x.name for x in bot.commands], verbosity=2)
 
+# Allow settings to be passed to 
+
 # Display the invite link
 invite_link: str = f"https://discord.com/api/oauth2/authorize?client_id=738596872222146662&permissions=8&redirect_uri=https%3A%2F%2Fdiscord.com%2F&scope=bot"
 log("Invite link:", invite_link, timestamp=False)
 
+# Blah
+settings.save_config()
+quit()
+
+# Start the bot
 log("running bot", verbosity=1)
 bot.run(settings.get('token'))
 

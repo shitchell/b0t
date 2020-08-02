@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 class Greetings(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self._last_member = None
 
@@ -12,7 +12,7 @@ class Greetings(commands.Cog):
         if channel is not None:
             await channel.send('Welcome {0.mention}.'.format(member))
 
-    @commands.command(name='hello')
+    @commands.command(name="hello")
     async def hello(self, ctx, member: discord.Member = None):
         """Says hello"""
         member = member or ctx.author
